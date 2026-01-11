@@ -1,0 +1,357 @@
+:root {
+    --bg-dark: #050505;
+    --acc-primary: #00fff2;
+    /* Neon Cyan */
+    --acc-secondary: #ad00ff;
+    /* Neon Purple */
+    --acc-success: #00ff66;
+    /* Neon Green */
+    --acc-danger: #ff0055;
+    /* Neon Red */
+    --acc-gold: #ffd700;
+
+    --glass-surface: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.2);
+
+    --slot-bg: rgba(0, 0, 0, 0.6);
+    --slot-hover: rgba(255, 255, 255, 0.1);
+
+    --transition-speed: 0.3s;
+}
+
+.hidden {
+    display: none !important;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: var(--bg-dark);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 22L12 18L22 22L12 2Z" fill="%2300fff2"/></svg>') 12 12, auto;
+    /* Custom Cursor */
+}
+
+/* Background Animation */
+#bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000 100%);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/cubes.png');
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.floating-item {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    opacity: 0.2;
+    filter: drop-shadow(0 0 10px var(--acc-primary));
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 4rem;
+    color: var(--acc-primary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 10px var(--acc-primary),
+        0 0 20px var(--acc-primary),
+        0 0 40px var(--acc-secondary);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px var(--acc-primary), 0 0 20px var(--acc-primary);
+    }
+
+    to {
+        text-shadow: 0 0 20px var(--acc-primary), 0 0 40px var(--acc-secondary);
+    }
+}
+
+/* Glass Panel - The Main Stage */
+.glass-panel {
+    background: rgba(10, 10, 15, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 255, 242, 0.05);
+    transition: all var(--transition-speed);
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Inputs */
+input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    font-family: 'VT323';
+    font-size: 1.4rem;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--acc-primary);
+    box-shadow: 0 0 15px rgba(0, 255, 242, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.search-container input {
+    width: 300px;
+}
+
+/* Buttons */
+.mc-btn {
+    font-family: 'VT323';
+    font-size: 1.4rem;
+    padding: 10px 25px;
+    border: none;
+    background: linear-gradient(45deg, #222, #333);
+    color: var(--acc-primary);
+    cursor: pointer;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+}
+
+.mc-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.mc-btn:hover::before {
+    left: 100%;
+}
+
+.mc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 242, 0.2);
+    border-color: var(--acc-primary);
+    color: #fff;
+    text-shadow: 0 0 8px var(--acc-primary);
+}
+
+.mc-btn.success {
+    background: linear-gradient(45deg, #004d1f, #008033);
+    color: var(--acc-success);
+    border-color: rgba(0, 255, 102, 0.3);
+}
+
+.mc-btn.success:hover {
+    box-shadow: 0 6px 20px rgba(0, 255, 102, 0.3);
+    border-color: var(--acc-success);
+}
+
+/* Crafting Area */
+.crafting-area {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid var(--glass-border);
+}
+
+.crafting-area.hidden {
+    display: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .input-group {
+    flex: 1;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    color: var(--acc-primary);
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Inventory Grid */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    /* No fixed height, allows growing */
+}
+
+@media (max-width: 800px) {
+    .inventory-grid {
+        grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    }
+}
+
+/* Slot Design */
+.inventory-slot {
+    aspect-ratio: 1;
+    background: var(--slot-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.inventory-slot.empty {
+    opacity: 0.5;
+}
+
+.inventory-slot.filled {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.inventory-slot.filled:hover {
+    border-color: var(--acc-primary);
+    box-shadow: 0 0 15px var(--acc-primary);
+    z-index: 10;
+    transform: scale(1.05);
+}
+
+/* Delete Button */
+.delete-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: var(--acc-danger);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+    box-shadow: 0 0 5px var(--acc-danger);
+    border: 2px solid #fff;
+}
+
+.inventory-slot:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+    background: #ff3377;
+}
+
+.item-count {
+    font-size: 1.2rem;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* Tooltip */
+.mc-tooltip {
+    background: rgba(10, 10, 15, 0.95);
+    border: 2px solid var(--acc-secondary);
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 0 20px rgba(173, 0, 255, 0.3);
+    z-index: 9999;
+}
+
+.tooltip-header {
+    color: var(--acc-primary);
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    text-shadow: 0 0 5px var(--acc-primary);
+}
+
+.tooltip-enchant {
+    color: var(--acc-secondary);
+    font-size: 1.1rem;
+    text-shadow: 0 0 5px var(--acc-secondary);
+}
+
+.tooltip-desc {
+    color: #aaa;
+    font-size: 1rem;
+}

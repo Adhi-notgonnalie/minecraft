@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Import a pixel font -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <div id="bg-animation"></div>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <header>
+            <h1>MINECRAFT INVENTORY</h1>
+        </header>
+
+        <main class="glass-panel">
+            <!-- Top Bar: Crafting & Search -->
+            <section class="top-bar">
+                <button id="toggle-craft-btn" class="mc-btn">Craft New Item</button>
+                <div class="search-container">
+                    <input type="text" id="search-bar" placeholder="Filter items...">
+                </div>
+            </section>
+
+            <!-- Collapsible Crafting Form -->
+            <section class="crafting-area hidden" id="crafting-area">
+                <form id="crafting-form">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" id="name" required placeholder="Diamond Sword">
+                        </div>
+                        <div class="input-group">
+                            <label>Qty</label>
+                            <input type="number" id="quantity" value="1" min="1">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <input type="text" id="description" placeholder="Item lore...">
+                    </div>
+                    <div class="input-group">
+                        <label>Enchantment</label>
+                        <input type="text" id="enchantment" placeholder="Sharpness V">
+                    </div>
+                    <button type="submit" class="mc-btn success">Craft Item</button>
+                </form>
+            </section>
+
+            <!-- Inventory Grid -->
+            <section class="inventory-area">
+                <div id="inventory-grid" class="inventory-grid">
+                    <!-- Items will be injected here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Custom Tooltip -->
+        <div id="mc-tooltip" class="mc-tooltip hidden">
+            <div class="tooltip-header" id="tooltip-name">Item Name</div>
+            <div class="tooltip-body">
+                <div id="tooltip-enchant" class="tooltip-enchant"></div>
+                <div id="tooltip-desc" class="tooltip-desc"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound Audio Context -->
+    <script src="app.js"></script>
+</body>
+
+</html>
